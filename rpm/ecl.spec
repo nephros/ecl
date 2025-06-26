@@ -65,6 +65,9 @@ rm -fr $RPM_BUILD_ROOT%{_docdir}
 rm -f $RPM_BUILD_ROOT%{_libdir}/Copyright
 rm -f $RPM_BUILD_ROOT%{_libdir}/LGPL
 
+# Do not package documentation:
+rm -fr %{buildroot}%{_mandir}
+
 # Add missing executable bits
 chmod a+x $RPM_BUILD_ROOT%{_libdir}/ecl-%{version}/dpp
 chmod a+x $RPM_BUILD_ROOT%{_libdir}/ecl-%{version}/ecl_min
@@ -91,7 +94,6 @@ chmod a-x $RPM_BUILD_ROOT%{_libdir}/libecl*.a
 %{_libdir}/libeclgc.a
 %{_libdir}/libeclgmp.a
 %{_includedir}/ecl
-%{_mandir}/man1/*
 %doc COPYING LICENSE
 
 %changelog
