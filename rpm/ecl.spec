@@ -31,10 +31,10 @@ Gray streams.
 # since they are required by the main package
 
 
-%package libecl
+%package -n libecl
 Summary: Library files of %{name}
 
-%description libecl
+%description -n libecl
 ECL (Embeddable Common Lisp) is an implementation of the Common Lisp
 language as defined by the ANSI X3J13 specification.  ECL features a
 bytecode compiler and interpreter, the ability to build standalone
@@ -101,7 +101,7 @@ chmod a-x $RPM_BUILD_ROOT%{_libdir}/libecl*.a
 %{_mandir}/man1/*
 %doc COPYING LICENSE
 
-%files libecl
+%files -n libecl
 %license LICENSE
 %{_libdir}/libecl.so.*
 
