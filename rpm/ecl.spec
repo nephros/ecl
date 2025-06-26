@@ -49,12 +49,12 @@ echo "cd build-static && ${srcdir}/configure --srcdir=${srcdir}/ \"\$@\"" > conf
 cd build-static && make -j 4 && cd ..
 
 echo "cd build-shared && ${srcdir}/configure --srcdir=${srcdir}/ \"\$@\"" > configure && chmod +x configure
-%configure  --enable-threads --enable-boehm=included \
-            --enable-libatomic=system --enable-gmp --with-dffi \
-            --enable-c99complex --disable-manual \
-            --enable-unicode \
-            --enable-soname --disable-rpath \
-            CFLAGS="%{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas"
+%configure --enable-threads --enable-boehm=included \
+           --enable-libatomic=system --enable-gmp --with-dffi \
+           --enable-c99complex --disable-manual \
+           --enable-unicode \
+           --enable-soname --disable-rpath \
+           CFLAGS="%{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas"
 cd build-shared && make -j 4 && cd ..
 
 %install
