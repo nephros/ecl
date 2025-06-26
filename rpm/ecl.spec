@@ -6,7 +6,7 @@ Summary:        Embeddable Common-Lisp
 License:        LGPLv2+ and BSD and MIT and Public Domain
 URL:            https://common-lisp.net/project/ecl/
 Source0:        %{name}-%{version}.tar.xz
-Patch0:         %{name}-%{version}-fpic-cflags-static.patch
+Patch0:         %{name}-fpic-cflags-static.patch
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig
@@ -75,8 +75,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/Copyright
 rm -f $RPM_BUILD_ROOT%{_libdir}/LGPL
 
 # Add missing executable bits
-chmod a+x $RPM_BUILD_ROOT%{_libdir}/ecl-%{version}/dpp
-chmod a+x $RPM_BUILD_ROOT%{_libdir}/ecl-%{version}/ecl_min
+chmod a+x $RPM_BUILD_ROOT%{_libdir}/ecl-*/dpp
+chmod a+x $RPM_BUILD_ROOT%{_libdir}/ecl-*/ecl_min
 
 # Remove executable bits from static libraries
 chmod a-x $RPM_BUILD_ROOT%{_libdir}/libecl*.a
