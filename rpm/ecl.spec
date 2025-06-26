@@ -12,6 +12,9 @@ BuildRequires:  gcc
 BuildRequires:  pkgconfig
 BuildRequires:  m4
 BuildRequires:  make
+BuildRequires:  gmp-devel
+BuildRequires:  pkgconfig(libffi)
+BuildRequires:  pkgconfig(atomic_ops)
 Requires:       gcc
 Requires:       libgcc%{?_isa}
 Requires:       glibc-devel%{?_isa}
@@ -52,34 +55,46 @@ echo "cd build-static && ${srcdir}/configure --srcdir=${srcdir}/ \"\$@\"" > conf
 %configure --enable-threads --enable-boehm=included \
            --enable-libatomic=included --enable-gmp=included --with-dffi=included \
            --enable-c99complex --disable-manual --disable-shared \
+           --enable-unicode \
            CFLAGS="%{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas"
-cd build-static && make -j 4 && cd ..
+pushd build-static
+%make_build
+popd
 
 echo "cd build-shared && ${srcdir}/configure --srcdir=${srcdir}/ \"\$@\"" > configure && chmod +x configure
-%configure  --enable-threads --enable-boehm=included \
-            --enable-libatomic=included --enable-gmp=included --with-dffi=included \
-            --enable-c99complex --disable-manual \
-            CFLAGS="%{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas"
-cd build-shared && make -j 4 && cd ..
+%configure --enable-threads --enable-boehm=included \
+           --enable-libatomic=system --enable-gmp --with-dffi \
+           --enable-c99complex --disable-manual \
+           --enable-unicode \
+           --enable-soname --disable-rpath \
+           CFLAGS="%{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas"
+pushd build-shared
+%make_build
+popd
 
 %install
-cd build-static
-make DESTDIR=$RPM_BUILD_ROOT install
+pushd build-static
+make DESTDIR=%{buildroot} install
+popd
 
-cd ../build-shared
-make DESTDIR=$RPM_BUILD_ROOT install
+pushd build-shared
+make DESTDIR=%{buildroot} install
+popd
 
 # Remove installed files that are in the wrong place
-rm -fr $RPM_BUILD_ROOT%{_docdir}
-rm -f $RPM_BUILD_ROOT%{_libdir}/Copyright
-rm -f $RPM_BUILD_ROOT%{_libdir}/LGPL
+rm -fr %{buildroot}%{_docdir}
+rm -f %{buildroot}%{_libdir}/Copyright
+rm -f %{buildroot}%{_libdir}/LGPL
+
+# Do not package documentation:
+rm -fr %{buildroot}%{_mandir}
 
 # Add missing executable bits
-chmod a+x $RPM_BUILD_ROOT%{_libdir}/ecl-*/dpp
-chmod a+x $RPM_BUILD_ROOT%{_libdir}/ecl-*/ecl_min
+chmod a+x %{buildroot}%{_libdir}/ecl-*/dpp
+chmod a+x %{buildroot}%{_libdir}/ecl-*/ecl_min
 
 # Remove executable bits from static libraries
-chmod a-x $RPM_BUILD_ROOT%{_libdir}/libecl*.a
+chmod a-x %{buildroot}%{_libdir}/libecl*.a
 
 %post
 /sbin/ldconfig
@@ -99,7 +114,6 @@ chmod a-x $RPM_BUILD_ROOT%{_libdir}/libecl*.a
 %{_libdir}/libeclgc.a
 %{_libdir}/libeclgmp.a
 %{_includedir}/ecl
-%{_mandir}/man1/*
 %doc COPYING LICENSE
 
 %changelog
