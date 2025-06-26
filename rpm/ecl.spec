@@ -41,10 +41,9 @@ mkdir -p build-shared build-static
 srcdir=`pwd`/src
 echo "cd build-static && ${srcdir}/configure --srcdir=${srcdir}/ \"\$@\"" > configure && chmod +x configure
 %configure --enable-threads --enable-boehm=included \
-           --enable-libatomic=system --enable-gmp --with-dffi \
+           --enable-libatomic=included --enable-gmp=included --with-dffi=included \
            --enable-c99complex --disable-manual --disable-shared \
            --enable-unicode \
-           --enable-soname --disable-rpath \
            CFLAGS="%{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas"
 pushd build-static
 %make_build
