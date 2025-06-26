@@ -55,25 +55,25 @@ cd build-shared && make -j 4 && cd ..
 
 %install
 cd build-static
-make DESTDIR=$RPM_BUILD_ROOT install
+make DESTDIR=%{buildroot} install
 
 cd ../build-shared
-make DESTDIR=$RPM_BUILD_ROOT install
+make DESTDIR=%{buildroot} install
 
 # Remove installed files that are in the wrong place
-rm -fr $RPM_BUILD_ROOT%{_docdir}
-rm -f $RPM_BUILD_ROOT%{_libdir}/Copyright
-rm -f $RPM_BUILD_ROOT%{_libdir}/LGPL
+rm -fr %{buildroot}%{_docdir}
+rm -f %{buildroot}%{_libdir}/Copyright
+rm -f %{buildroot}%{_libdir}/LGPL
 
 # Do not package documentation:
 rm -fr %{buildroot}%{_mandir}
 
 # Add missing executable bits
-chmod a+x $RPM_BUILD_ROOT%{_libdir}/ecl-%{version}/dpp
-chmod a+x $RPM_BUILD_ROOT%{_libdir}/ecl-%{version}/ecl_min
+chmod a+x %{buildroot}%{_libdir}/ecl-%{version}/dpp
+chmod a+x %{buildroot}%{_libdir}/ecl-%{version}/ecl_min
 
 # Remove executable bits from static libraries
-chmod a-x $RPM_BUILD_ROOT%{_libdir}/libecl*.a
+chmod a-x %{buildroot}%{_libdir}/libecl*.a
 
 %post
 /sbin/ldconfig
