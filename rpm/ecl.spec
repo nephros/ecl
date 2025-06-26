@@ -18,6 +18,8 @@ Requires:       glibc-devel%{?_isa}
 Requires(post): coreutils
 Requires(postun): coreutils
 
+Requires:       libecl = %{name}-%{version}
+
 %description
 ECL (Embeddable Common Lisp) is an implementation of the Common Lisp
 language as defined by the ANSI X3J13 specification.  ECL features a
@@ -28,6 +30,16 @@ Gray streams.
 # no -devel package for header files is split off
 # since they are required by the main package
 
+
+%package libecl
+Summary: Library files of %{name}
+
+%description libecl
+ECL (Embeddable Common Lisp) is an implementation of the Common Lisp
+language as defined by the ANSI X3J13 specification.  ECL features a
+bytecode compiler and interpreter, the ability to build standalone
+executables and libraries, and extensions such as ASDF, sockets, and
+Gray streams.
 
 %prep
 %setup -q -n %{name}-%{version}/ecl
@@ -79,8 +91,6 @@ chmod a-x $RPM_BUILD_ROOT%{_libdir}/libecl*.a
 %{_bindir}/ecl
 %{_bindir}/ecl-config
 %{_libdir}/ecl*
-%{_libdir}/libecl.so.21.2*
-%{_libdir}/libecl.so.21
 %{_libdir}/libecl.so
 %{_libdir}/libecl.a
 %{_libdir}/libeclatomic.a
@@ -90,6 +100,10 @@ chmod a-x $RPM_BUILD_ROOT%{_libdir}/libecl*.a
 %{_includedir}/ecl
 %{_mandir}/man1/*
 %doc COPYING LICENSE
+
+%files libecl
+%license LICENSE
+%{_libdir}/libecl.so.*
 
 %changelog
 * Sun Mar 21 2021 Renaud Casenave-Péré <renaud@casenave-pere.fr> - 21.2.1-2
