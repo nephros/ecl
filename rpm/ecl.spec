@@ -46,7 +46,9 @@ echo "cd build-static && ${srcdir}/configure --srcdir=${srcdir}/ \"\$@\"" > conf
            --enable-unicode \
            --enable-soname --disable-rpath \
            CFLAGS="%{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas"
-cd build-static && make -j 4 && cd ..
+pushd build-static
+%make_build
+popd
 
 echo "cd build-shared && ${srcdir}/configure --srcdir=${srcdir}/ \"\$@\"" > configure && chmod +x configure
 %configure --enable-threads --enable-boehm=included \
@@ -55,14 +57,18 @@ echo "cd build-shared && ${srcdir}/configure --srcdir=${srcdir}/ \"\$@\"" > conf
            --enable-unicode \
            --enable-soname --disable-rpath \
            CFLAGS="%{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas"
-cd build-shared && make -j 4 && cd ..
+pushd build-shared
+%make_build
+popd
 
 %install
-cd build-static
+pushd build-static
 make DESTDIR=%{buildroot} install
+popd
 
-cd ../build-shared
+pushd build-shared
 make DESTDIR=%{buildroot} install
+popd
 
 # Remove installed files that are in the wrong place
 rm -fr %{buildroot}%{_docdir}
