@@ -43,6 +43,7 @@ echo "cd build-static && ${srcdir}/configure --srcdir=${srcdir}/ \"\$@\"" > conf
 %configure --enable-threads --enable-boehm=included \
            --enable-libatomic=system --enable-gmp --with-dffi \
            --enable-c99complex --disable-manual --disable-shared \
+           --enable-soname --disable-rpath \
            CFLAGS="%{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas"
 cd build-static && make -j 4 && cd ..
 
@@ -50,6 +51,7 @@ echo "cd build-shared && ${srcdir}/configure --srcdir=${srcdir}/ \"\$@\"" > conf
 %configure  --enable-threads --enable-boehm=included \
             --enable-libatomic=system --enable-gmp --with-dffi \
             --enable-c99complex --disable-manual \
+            --enable-soname --disable-rpath \
             CFLAGS="%{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas"
 cd build-shared && make -j 4 && cd ..
 
