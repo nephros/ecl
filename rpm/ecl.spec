@@ -43,12 +43,6 @@ Homepage: %{url}
 %package -n lib%{name}
 Summary:  Embeddable Common-Lisp -- shared library
 Group:    System/Libraries
-Requires: libgcc%{?_isa}
-Requires: glibc-devel%{?_isa}
-Requires: gmp-devel
-Requires: pkgconfig(libffi)
-Requires: pkgconfig(atomic_ops)
-
 %description -n lib%{name}
 This package contains the ECL shared library.
 
@@ -56,6 +50,11 @@ This package contains the ECL shared library.
 Summary:  Embeddable Common-Lisp -- development files
 Group:    Development/Libraries/C and C++
 Requires: lib%{name} = %{version}
+Requires: libgcc%{?_isa}
+Requires: glibc-devel%{?_isa}
+Requires: gmp-devel
+Requires: pkgconfig(libffi)
+Requires: pkgconfig(atomic_ops)
 
 %description devel
 ECL (Embeddable Common Lisp) is an implementation of the Common Lisp
