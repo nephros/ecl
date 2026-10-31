@@ -2,7 +2,7 @@
 %global minor 5
 %global micro 5
 Name:           ecl
-Version:        %{major}.%{minor}.{micro}
+Version:        %{major}.%{minor}.%{micro}
 Release:        1%{?dist}
 Summary:        Embeddable Common-Lisp
 
