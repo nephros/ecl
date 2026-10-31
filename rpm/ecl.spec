@@ -89,7 +89,7 @@ export CFLAGS="${CFLAGS} -std=gnu17"
     CFLAGS="%{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas" \
     %{nil}
 
-%make_build
+%make_build  -j1
 
 %install
 %make_install
