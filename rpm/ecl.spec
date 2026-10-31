@@ -84,7 +84,7 @@ export CFLAGS="${CFLAGS} -std=gnu17"
     --with-defsystem \
     --enable-c99complex \
 %ifarch %ix86
-    --with-sse=no \
+    --with-sse=yes \
 %endif
     CFLAGS="%{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas" \
     %{nil}
