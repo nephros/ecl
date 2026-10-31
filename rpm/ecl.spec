@@ -93,7 +93,7 @@ export CFLAGS="${CFLAGS} -std=gnu17"
 %make_build
 
 %install
-make DESTDIR=$RPM_BUILD_ROOT install
+%make_install
 
 # Remove installed files that are in the wrong place
 rm -fr $RPM_BUILD_ROOT%{_docdir}
