@@ -89,6 +89,7 @@ export CFLAGS="${CFLAGS} -std=gnu17"
     CFLAGS="%{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas" \
     %{nil}
 
+# parallel build causes OBS to kill the builder
 %make_build  -j1
 
 %install
