@@ -33,7 +33,7 @@ bytecode compiler and interpreter, the ability to build standalone
 executables and libraries, and extensions such as ASDF, sockets, and
 Gray streams.
 
-%if "%{?vendor}" == "chum"
+%if 0%{?_chum}
 Title: Embeddable Common-Lisp
 Type: other
 DeveloperName: Marius Gerbershagen
@@ -89,8 +89,12 @@ export CFLAGS="${CFLAGS} -std=gnu17"
     CFLAGS="%{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas" \
     %{nil}
 
+%if 0%{?_chum}
 # parallel build causes OBS to kill the builder
 %make_build  -j1
+%else
+%make_build
+%endif
 
 %install
 %make_install
