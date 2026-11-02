@@ -87,7 +87,7 @@ export CFLAGS="${CFLAGS} -std=gnu17"
 %ifarch %ix86
     --with-sse=yes \
 %endif
-    CFLAGS="%{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas" \
+    CFLAGS="$CFLAGS %{optflags} -Wno-unused -Wno-return-type -Wno-unknown-pragmas" \
     %{nil}
 
 %if 0%{?_chum}
