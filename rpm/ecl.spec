@@ -78,7 +78,7 @@ export CFLAGS="${CFLAGS} -std=gnu17"
     --enable-soname \
     --disable-rpath \
     --enable-gmp=system \
-    --enable-unicode=16 \
+    --enable-unicode \
     --enable-threads \
     --enable-libatomic=system \
     --with-dffi=system \
